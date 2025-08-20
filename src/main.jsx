@@ -9,7 +9,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import ViewTrip from './view-trip/[tripid]/index.jsx'
 import Mytrips from './my-trips'
 import PackingDetails from './view-trip/[tripid]/components/packingDetails'
-import Features from './components/ui/custom/features'
+import Features from './components/ui/custom/Features'
 
 const router = createBrowserRouter([
   {
