@@ -67,7 +67,7 @@ function Header() {
              <Button variant='outline' className='rounded-full bg-red-500'>Home</Button></a>
             <a href="/create-trip">
              <Button variant='outline' className='rounded-full'>Create Trip</Button></a>
-            <a href="/My-trips">
+            <a href="/my-trips">
 
             <Button variant='outline' className='rounded-full'>My Trip</Button></a>
             <Popover>

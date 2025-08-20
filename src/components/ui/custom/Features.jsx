@@ -1,5 +1,5 @@
 import React from 'react'
-import GeminiChatbot from './GeminiChatBot'
+import GeminiChatbot from './GeminiChatbot'
 import LanguageBuddy from './LanguageBuddy'
 
 function Features() {
