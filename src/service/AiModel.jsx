@@ -29,23 +29,31 @@ export const generateTripPlan = async (location, days, budget, travelers) => {
 - Best time to visit
 - Recommended duration (in hours)
 
-Format the entire response as a **valid JSON object** with two top-level keys: "hotels" and "itinerary". No extra text, markdown, or explanation—only JSON. Ensure it's clean and parseable and in the itinerary it should return spots with spots: and the activity details no need to change everytime the spots name like places or activities and description should in name of short_description everytime without any changes.
+Format the entire response as a valid JSON object with two top-level keys: "hotels" and "itinerary". 
+ONLY RETURN JSON. DO NOT INCLUDE ANY TEXT OR MARKDOWN OUTSIDE JSON.
+In the itinerary, always use "spots" as the key and "short_description" for each activity's description.
 `;
 
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
 
     const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    const text = await result.response.text(); // ✅ await added
 
-    // Extract valid JSON
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("No valid JSON found in Gemini response");
+    let parsedJson;
+    try {
+      parsedJson = JSON.parse(text); // Try parsing directly
+    } catch (e) {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error("No valid JSON found in Gemini response");
+      parsedJson = JSON.parse(match[0]);
+    }
 
-    const parsedJson = JSON.parse(jsonMatch[0]);
     return parsedJson;
   } catch (error) {
     console.error("Error generating trip plan with Gemini:", error);
     throw error;
   }
+
 };
+

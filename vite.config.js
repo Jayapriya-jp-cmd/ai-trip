@@ -12,9 +12,14 @@ export default defineConfig({
     },
   },
   server: {
-    headers: {
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cross-Origin-Embedder-Policy": "require-corp",
+  proxy: {
+    "/images": {
+      target: "https://cdn.pixabay.com",
+      changeOrigin: true,
+      secure: false,
+      rewrite: (path) => path.replace(/^\/images/, ""),
     },
   },
+}
+
 })
